@@ -6,7 +6,7 @@
 /*   By: yer-retb <yer-retb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 23:28:12 by yer-retb          #+#    #+#             */
-/*   Updated: 2022/06/01 00:43:28 by yer-retb         ###   ########.fr       */
+/*   Updated: 2022/06/03 05:32:51 by yer-retb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ typedef struct n_list{
 	struct n_list *next;
 	int data;
 	int id;
-	int *arr;
 
 } t_list;
 
@@ -75,7 +74,8 @@ void sort_four(t_list **stack_a, t_list **stack_b, int num, int f);
 void sort_five(t_list **stack_a, t_list **stack_b, int num, int *arr);
 int maximum(t_list *stack_a);
 int minimum(t_list *stack_a);
-int find_pos_min(t_list **stack_a, int min);
+int find_pos_min(t_list *stack_a, int min);
+void new_id(t_list *stack_a, int size);
 
 /* give the data , ft_id.c */
 
@@ -88,6 +88,8 @@ int stack_size(t_list *stack_a);
 /* sorting big numbers , in big_sort */
 
 void sort_stack(t_list **stack_a, t_list **stack_b, int *arr);
+void back_to_a(t_list **stack_a, t_list **stack_b);
+int	position(int number, t_list *stack);
 
 
 /*just for checking ,in ft_id, don't forget to delete them */

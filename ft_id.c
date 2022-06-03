@@ -6,7 +6,7 @@
 /*   By: yer-retb <yer-retb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 23:27:54 by yer-retb          #+#    #+#             */
-/*   Updated: 2022/06/01 00:42:28 by yer-retb         ###   ########.fr       */
+/*   Updated: 2022/06/02 04:22:01 by yer-retb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@ int get_data(int *arr, int size, int data)
 
 void give_id(int *arr, int size, t_list *head)
 {
+	t_list *save;
 	int i;
 	int j;
 
+	save = head;
 	i = 0;
 	while (i < size - 1)
 	{
@@ -50,10 +52,10 @@ void give_id(int *arr, int size, t_list *head)
 		}
 		i++;
 	}
-	while (head!= NULL)
+	while (save != NULL)
 	{
-		head->id = get_data(arr, size, head->data);
-		head = head->next;
+		save->id = get_data(arr, size, save->data);
+		save = save->next;
 	}
 }
 

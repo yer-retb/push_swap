@@ -6,7 +6,7 @@
 /*   By: yer-retb <yer-retb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 23:28:09 by yer-retb          #+#    #+#             */
-/*   Updated: 2022/06/01 00:45:12 by yer-retb         ###   ########.fr       */
+/*   Updated: 2022/06/03 05:37:05 by yer-retb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,19 +53,17 @@ void ft_node(t_list **head, char **av, int *arr)
 	int i;
 	int size;
 	t_list *save;
-	t_list max;
 
 	i = 1;
 	size = 0;
 	while (av[i])
 	{
-		ft_list_add_back(head, ft_list_new(atoi(av[i++])));
+		ft_list_add_back(head, ft_list_new(ft_atoi(av[i++])));
 		size++;
 	}
 	ft_if_sorted(*head);
 	save = *head;
 	give_id(arr, size, *head);
-	//ft_get_id(head, arr, size);
 	*head = save;
 }
 
@@ -90,17 +88,4 @@ int main(int ac, char **av)
 	duplicate(arr, ac - 1);
 	ft_node(&head, av, arr);
 	sorting(&head, &stack_b, ac - 1, arr);
-	//int l = printf("%d\n",find_pos_min(&head, 0));
-	// 	printf("%p\n",head);
-	// 	int d = 0;
-	// while (head)
-	// {
-	// 	printf("--> %d\n", head->id);
-	// 	printf("<%d>\n", arr[d++]);
-	// 	head = head->next;
-	// }
-	// printf("%p\n",head);
-	// exit(1);
-
-	//system("leaks push_swap");
 }

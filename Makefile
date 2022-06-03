@@ -6,7 +6,7 @@
 #    By: yer-retb <yer-retb@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/30 23:28:03 by yer-retb          #+#    #+#              #
-#    Updated: 2022/05/31 00:53:01 by yer-retb         ###   ########.fr        #
+#    Updated: 2022/06/03 05:33:41 by yer-retb         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,4 +25,4 @@ clean :
 	@rm -rf *.o 
 fclean : clean
 	@rm -rf	$(obj)
-re : fclean all 
+re : fclean all

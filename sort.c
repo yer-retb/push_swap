@@ -6,7 +6,7 @@
 /*   By: yer-retb <yer-retb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 23:27:36 by yer-retb          #+#    #+#             */
-/*   Updated: 2022/06/01 01:54:57 by yer-retb         ###   ########.fr       */
+/*   Updated: 2022/06/03 02:33:52 by yer-retb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,7 @@ void ft_three(t_list **stack_a, int num)
 			exit(1);
 		}
 	if (head->id > med->id && last->id > head->id)
-	{
 		swap(stack_a, 'a');
-	}
 	else if (head->id > last->id && last->id > med->id)
 		rotate(stack_a, 'a');
 	else if (head->id < last->id && last->id < med->id)
@@ -51,7 +49,7 @@ void print_stack(t_list *head)
 	printf("-----\n");
 	while (head)
 	{
-		printf("%d\n", head->id);
+		printf("%d\n", head->data);
 		head = head->next;
 	}
 	printf("-----\n");
@@ -71,12 +69,12 @@ int minimum(t_list *stack_a)
 	return (min->id);
 }
 
-int find_pos_min(t_list **stack_a, int min)
+int find_pos_min(t_list *stack_a, int min)
 {
 	t_list *new;
 	int	count;
 
-	new = (*stack_a);
+	new = stack_a;
 	count = 0;
 	while (new != NULL)
 	{
@@ -100,6 +98,23 @@ int maximum(t_list *stack_a)
 		head = head->next;
 	}
 	return (max->id);
+}
+
+void new_id(t_list *stack_a, int size)
+{
+	t_list *head = stack_a;
+	int *tab;
+	int v;
+	v = 0;
+	tab = malloc(sizeof(int) * size);
+
+	while (stack_a != NULL)
+	{
+		tab[v] = stack_a->data;
+		stack_a = stack_a->next;
+		v++;
+	}
+	give_id(tab, size, head);
 }
 
 void sort_four(t_list **stack_a, t_list **stack_b, int num, int f)
@@ -160,15 +175,7 @@ void sort_five(t_list **stack_a, t_list **stack_b, int num, int *arr)
 			rr_rotate(&head, 'a');
 		}
 	}
-	give_id(arr, num, head);
-	// while (stack_a)
-	// {
-	// 	printf("--> %d\n", (*stack_a)->id);
-	// 		(*stack_a) = (*stack_a)->next;
-	// }
-	// exit(1);
 	sort_four(&head, stack_b, 5, 1);
-	//print_stack(head);
 }
 
 void sorting(t_list **stack_a, t_list **stack_b, int num, int *arr)

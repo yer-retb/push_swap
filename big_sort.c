@@ -6,7 +6,7 @@
 /*   By: yer-retb <yer-retb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 23:27:33 by yer-retb          #+#    #+#             */
-/*   Updated: 2022/06/01 00:47:50 by yer-retb         ###   ########.fr       */
+/*   Updated: 2022/06/03 22:25:56 by yer-retb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ int update(t_list *stack_a, t_range *range)
 
 void push_b(t_list **stack_a, t_list **stack_b, t_range *range)
 {
-	int i;
-	i = -1;
-	
+
 	while (1)
 	{
 		if (!camera(*stack_a, range))
@@ -103,12 +101,68 @@ void push_b(t_list **stack_a, t_list **stack_b, t_range *range)
 	}
 }
 
+int	position(int number, t_list *stack)
+{
+	t_list *head = stack;
+	int i = -1;
+	int size;
+
+	size = stack_size(head);
+	while (++i < size / 2)
+	{
+		if (number == head->id)
+			return(1);
+		head = head->next;
+	}
+	return (0);
+}
+
+void back_to_a(t_list **stack_a, t_list **stack_b)
+{
+	t_list *head;
+	int max;
+
+	head = *stack_b;
+	max = maximum(head);
+	while (1)
+	{
+		if ((*stack_b) == NULL)
+			return ;
+		else if (position(max , (*stack_b)))
+		{
+			while (1)
+			{
+				if ((*stack_b)->id == max)
+				{
+					pa(stack_a, stack_b);
+					max--;
+					break;
+				}
+				rotate(stack_b, 'b');
+			}
+		}
+		else
+		{
+			while(1)
+			{
+				if ((*stack_b)->id  == max)
+				{
+					pa(stack_a, stack_b);
+					max--;
+					break;
+				}
+				rr_rotate(stack_b, 'b');
+			}
+		}
+	}
+}
+
 void sort_stack(t_list **stack_a, t_list **stack_b, int *arr)
 {
 	t_range *range;
-	t_list *head;
 
-	head = *stack_a;
+	
+
 	range = malloc(sizeof(t_range));
 	range = init(*stack_a, range);
 	while (stack_size(*stack_a) > 5)
@@ -116,14 +170,7 @@ void sort_stack(t_list **stack_a, t_list **stack_b, int *arr)
 		push_b(stack_a, stack_b, range);
 		range = ft_range(*stack_a, range);
 	}
-	give_id(arr, stack_size(*stack_a), head);
-	// while (stack_a)
-	// {
-	// 	printf("--> %d\n", (*stack_a)->id);
-	// 		(*stack_a) = (*stack_a)->next;
-	// }
-	
-	//sort_five(stack_a, stack_b, stack_size(*stack_a), arr);
-	//printf("%d\n",stack_size(*stack_a));
-	// print_stack(*stack_a);
+	new_id((*stack_a) ,stack_size(*stack_a));
+	sort_five(stack_a, stack_b, stack_size(*stack_a), arr);
+	back_to_a(stack_a, stack_b);
 }
