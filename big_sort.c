@@ -6,7 +6,7 @@
 /*   By: yer-retb <yer-retb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 23:27:33 by yer-retb          #+#    #+#             */
-/*   Updated: 2022/06/03 22:25:56 by yer-retb         ###   ########.fr       */
+/*   Updated: 2022/06/06 06:23:08 by yer-retb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_range *ft_range(t_list *stack_a, t_range *range)
 	range->min = range->max + 1;
 	range->max += (stack_size(stack_a) / 4) + 1;
 	range->med = (range->min + range->max) / 2;
+
 	return(range);
 }
 
@@ -25,6 +26,7 @@ t_range *init(t_list *stack_a, t_range *range)
 	range->min = 0;
 	range->max = (stack_size(stack_a) / 4) + 1;
 	range->med = (range->min + range->max) / 2;
+	
 	return(range);
 }
 
@@ -76,7 +78,7 @@ void push_b(t_list **stack_a, t_list **stack_b, t_range *range)
 						rotate(stack_b, 'b');
 					}
 					break;
-				}		
+				}
 				rotate(stack_a, 'a');
 			}
 		}
@@ -121,13 +123,17 @@ void back_to_a(t_list **stack_a, t_list **stack_b)
 {
 	t_list *head;
 	int max;
-
+	int i = 0;
+	
 	head = *stack_b;
-	max = maximum(head);
+	max = maximum(*stack_b);
 	while (1)
 	{
-		if ((*stack_b) == NULL)
+		if (max == 0)
+		{
+			pa(stack_a, stack_b);		
 			return ;
+		}
 		else if (position(max , (*stack_b)))
 		{
 			while (1)
@@ -135,7 +141,8 @@ void back_to_a(t_list **stack_a, t_list **stack_b)
 				if ((*stack_b)->id == max)
 				{
 					pa(stack_a, stack_b);
-					max--;
+					max = maximum(*stack_b);
+					i++;
 					break;
 				}
 				rotate(stack_b, 'b');
@@ -145,10 +152,11 @@ void back_to_a(t_list **stack_a, t_list **stack_b)
 		{
 			while(1)
 			{
-				if ((*stack_b)->id  == max)
+				if ((*stack_b)->id == max)
 				{
 					pa(stack_a, stack_b);
-					max--;
+					max = maximum(*stack_b);
+					i++;
 					break;
 				}
 				rr_rotate(stack_b, 'b');
@@ -157,12 +165,10 @@ void back_to_a(t_list **stack_a, t_list **stack_b)
 	}
 }
 
-void sort_stack(t_list **stack_a, t_list **stack_b, int *arr)
+void sort_stack(t_list **stack_a, t_list **stack_b)
 {
 	t_range *range;
-
 	
-
 	range = malloc(sizeof(t_range));
 	range = init(*stack_a, range);
 	while (stack_size(*stack_a) > 5)
@@ -170,7 +176,5 @@ void sort_stack(t_list **stack_a, t_list **stack_b, int *arr)
 		push_b(stack_a, stack_b, range);
 		range = ft_range(*stack_a, range);
 	}
-	new_id((*stack_a) ,stack_size(*stack_a));
-	sort_five(stack_a, stack_b, stack_size(*stack_a), arr);
-	back_to_a(stack_a, stack_b);
+	sort_five(stack_a, stack_b, stack_size(*stack_a));
 }

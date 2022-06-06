@@ -6,7 +6,7 @@
 /*   By: yer-retb <yer-retb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 23:28:12 by yer-retb          #+#    #+#             */
-/*   Updated: 2022/06/03 05:32:51 by yer-retb         ###   ########.fr       */
+/*   Updated: 2022/06/06 06:24:46 by yer-retb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ int up_down(t_list *stack_a, int number, int size);
 
 /* sorting , in sort.c */
 
-void sorting(t_list **stack_a, t_list **stack_b, int num, int *arr);
+void sorting(t_list **stack_a, t_list **stack_b, int num);
 void ft_three(t_list **stack_a, int num);
-void sort_four(t_list **stack_a, t_list **stack_b, int num, int f);
-void sort_five(t_list **stack_a, t_list **stack_b, int num, int *arr);
+void sort_five(t_list **stack_a, t_list **stack_b, int num);
 int maximum(t_list *stack_a);
 int minimum(t_list *stack_a);
 int find_pos_min(t_list *stack_a, int min);
 void new_id(t_list *stack_a, int size);
+void push_min(t_list *stack_a, t_list *stack_b);
 
 /* give the data , ft_id.c */
 
@@ -87,7 +87,7 @@ int stack_size(t_list *stack_a);
 
 /* sorting big numbers , in big_sort */
 
-void sort_stack(t_list **stack_a, t_list **stack_b, int *arr);
+void sort_stack(t_list **stack_a, t_list **stack_b);
 void back_to_a(t_list **stack_a, t_list **stack_b);
 int	position(int number, t_list *stack);
 

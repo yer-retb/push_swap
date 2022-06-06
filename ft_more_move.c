@@ -6,7 +6,7 @@
 /*   By: yer-retb <yer-retb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 23:27:57 by yer-retb          #+#    #+#             */
-/*   Updated: 2022/05/30 23:27:58 by yer-retb         ###   ########.fr       */
+/*   Updated: 2022/06/05 07:32:14 by yer-retb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,14 @@ void rr_rotate(t_list **stack, char stack_name)
 	t_list *head;
 	t_list *save;
 	t_list *ptr;
-
 	head = *stack;
 	save = head;
 	ptr = head;
+
+	if (*stack == NULL || stack_size(*stack) < 2)
+		return ;
 	while (save->next->next != NULL)
-	{
 		save = save->next;
-	}
 	head = save->next;
 	save->next = NULL;
 	head->next = ptr;

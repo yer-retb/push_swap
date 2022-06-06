@@ -6,7 +6,7 @@
 /*   By: yer-retb <yer-retb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 23:27:36 by yer-retb          #+#    #+#             */
-/*   Updated: 2022/06/03 02:33:52 by yer-retb         ###   ########.fr       */
+/*   Updated: 2022/06/06 06:24:41 by yer-retb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,36 @@ void print_stack(t_list *head)
 	printf("-----\n");
 }
 
-int minimum(t_list *stack_a)
+int minimum(t_list *stack)
 {
-	t_list *head = stack_a;
-	t_list *min = stack_a;
+	t_list *head = stack;
+	int min;
 	
+	min = head->id;
 	while (head != NULL)
 	{
-		if (min->id > head->id)
-			min->id = head->id;
+		if (min > head->id)
+			min = head->id;
 		head = head->next;
 	}
-	return (min->id);
+	return (min);
+}
+
+int maximum(t_list *stack)
+{
+	t_list *head = stack;
+	int max;
+	
+	max = head->id;
+	if (!head)
+		return (0);
+	while (head != NULL)
+	{
+		if (max < head->id)
+			max = head->id;
+		head = head->next;
+	}
+	return (max);
 }
 
 int find_pos_min(t_list *stack_a, int min)
@@ -86,20 +104,6 @@ int find_pos_min(t_list *stack_a, int min)
 	return (count);
 }
 
-int maximum(t_list *stack_a)
-{
-	t_list *head = stack_a;
-	t_list *max = stack_a;
-	
-	while (head != NULL)
-	{
-		if (max->id < head->id)
-			max->id = head->id;
-		head = head->next;
-	}
-	return (max->id);
-}
-
 void new_id(t_list *stack_a, int size)
 {
 	t_list *head = stack_a;
@@ -117,78 +121,56 @@ void new_id(t_list *stack_a, int size)
 	give_id(tab, size, head);
 }
 
-void sort_four(t_list **stack_a, t_list **stack_b, int num, int f)
+void sort_five(t_list **stack_a, t_list **stack_b, int num)
 {
 	t_list *head = *stack_a;
-
-	if (num == 4)
-		f = 0;
-	while (stack_size(head) > 3)
-	{
-		if (up_down(head, f, stack_size(head)))
-		{
-			if(head->id == f)
-			{
-				pb(&head, stack_b);
-				break ;
-			}
-			rotate(&head, 'a');
-		}
-		else
-		{
-			if(head->id == f)
-			{
-				pb(&head, stack_b);
-				break ;
-			}
-			rr_rotate(&head, 'a');
-		}
-	}
-	ft_three(&head, num);
-	pa(&head, stack_b);
-	pa(&head, stack_b);
-}
-
-void sort_five(t_list **stack_a, t_list **stack_b, int num, int *arr)
-{
-	t_list *head = *stack_a;
-	t_list *save = *stack_a;
+	int min;
 	
-	while (stack_size(head) > 3)
+	(*stack_a) = head;
+	min = minimum(*stack_a);
+	while (stack_size(*stack_a) > 3)
 	{
-		if (up_down(head, 0, stack_size(head)))
+		if (up_down((*stack_a), min, num))
 		{
-			if(head->id == 0)
+			while (1)
 			{
-				pb(&head, stack_b);
-				break ;
+				if((*stack_a)->id == min)
+				{
+					pb(stack_a, stack_b);
+					min = minimum(*stack_a);
+					break ;
+				}
+				rotate(stack_a, 'a');
 			}
-			rotate(&head, 'a');
 		}
 		else
 		{
-			if(head->id == 0)
+			while (1)
 			{
-				pb(&head, stack_b);
-				break ;
+				if((*stack_a)->id == min)
+				{
+					pb(stack_a, stack_b);
+					min = minimum(*stack_a);
+					break ;
+				}
+				rr_rotate(stack_a, 'a');
 			}
-			rr_rotate(&head, 'a');
 		}
 	}
-	sort_four(&head, stack_b, 5, 1);
+	ft_three(stack_a, num);
+	back_to_a(stack_a, stack_b);
 }
 
-void sorting(t_list **stack_a, t_list **stack_b, int num, int *arr)
+void sorting(t_list **stack_a, t_list **stack_b, int num)
 {
 
 	t_list *head = *stack_a;
 	
 	if (num <= 3)
 		ft_three(&head, num);
-	if (num	== 4)
-		sort_four(stack_a, stack_b, num, 0);
-	if (num == 5)
-		sort_five(stack_a, stack_b, num, arr);
-	else
-		sort_stack(stack_a, stack_b, arr);
+	(*stack_a) = head;
+	if (num == 4 || num == 5)
+		sort_five(stack_a, stack_b, num);
+	if (num > 5)
+		sort_stack(stack_a, stack_b);
 }

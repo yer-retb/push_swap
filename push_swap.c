@@ -6,7 +6,7 @@
 /*   By: yer-retb <yer-retb@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 23:28:09 by yer-retb          #+#    #+#             */
-/*   Updated: 2022/06/03 05:37:05 by yer-retb         ###   ########.fr       */
+/*   Updated: 2022/06/06 06:25:11 by yer-retb         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,5 @@ int main(int ac, char **av)
 		arr[x++] = ft_atoi(av[j++]);
 	duplicate(arr, ac - 1);
 	ft_node(&head, av, arr);
-	sorting(&head, &stack_b, ac - 1, arr);
+	sorting(&head, &stack_b, ac - 1);
 }
